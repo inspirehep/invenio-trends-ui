@@ -1,18 +1,15 @@
 module.exports = function(grunt) {
 
+  require("load-grunt-tasks")(grunt);
+
+  var path = 'src/invenio-trends-ui/';
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-      dist: {
-        files: {
-          'dist/bundle.js': ['js/modernizr.custom.js', 'js/jquery.min.js', 'js/*.js']
-        }
-      }
-    },
     cssmin: {
       dist: {
         files: {
-          'dist/bundle.css': ['css/*.css']
+          'dist/bundle.css': path + 'app.css'
         }
       }
     },
@@ -20,56 +17,44 @@ module.exports = function(grunt) {
       dist: {
         options: {
           removeComments: true,
-          collapseWhitespace: true,
-          minifyURLs: true,
-          minifyJS: true
+          collapseWhitespace: true
         },
         files: {
-          'dist/index.html': './index.html',
+          'dist/index.html': path + 'index.html'
         }
       }
     },
-    copy: {
-      dist: {
-        files: [{
-          expand: true,
-          src: ['fonts/*', 'php/*', 'img/*'],
-          dest: 'dist'
-        }],
-      },
-    },
+    /*copy: {
+     dist: {
+     files: [
+     {
+     src: ['fonts/*', 'img/*'],
+     dest: 'dist'
+     }
+     ]
+     },
+     },*/
     watch: {
       options: {
-        livereload: true
+        livereload: true,
+        spawn: false
       },
       js: {
-        files: ['js/*.js'],
-        tasks: ['uglify'],
-        options: {
-          spawn: false
-        }
+        files: path + '**/*.js',
+        tasks: ['browserify']
       },
       css: {
-        files: ['css/*.css'],
-        tasks: ['cssmin'],
-        options: {
-          spawn: false
-        }
+        files: path + '**/*.css',
+        tasks: ['cssmin']
       },
       html: {
-        files: ['index.html'],
-        tasks: ['htmlmin'],
-        options: {
-          spawn: false
-        }
-      },
-      files: {
-        files: ['fonts/*', 'php/*', 'img/*'],
-        tasks: ['copy'],
-        options: {
-          spawn: false
-        }
-      }
+        files: path + '**/*.html',
+        tasks: ['htmlmin']
+      }/*,
+       files: {
+       files: ['fonts/*', 'img/*'],
+       tasks: ['copy']
+       }*/
     },
     connect: {
       server: {
@@ -79,18 +64,31 @@ module.exports = function(grunt) {
         }
       }
     },
+    browserify: {
+      options: {
+        watch: true,
+        browserifyOptions: {
+          debug: true
+        },
+        transform: [
+          [
+            "babelify",
+            {
+              presets: ['es2015']
+            }
+          ]
+        ]
+      },
+      dist: {
+        files: {
+          'dist/bundle.js': path + '*.js'
+        }
+      }
+    },
     clean: ['dist']
   });
 
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-htmlmin');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-
-  grunt.registerTask('default', ['clean', 'uglify', 'cssmin', 'htmlmin', 'copy']);
+  grunt.registerTask('default', ['clean', 'browserify', 'cssmin', 'htmlmin']);
   grunt.registerTask('dev', ['default', 'connect', 'watch']);
 
 };

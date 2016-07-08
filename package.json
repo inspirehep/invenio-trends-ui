@@ -9,8 +9,22 @@
     "name": "Teo Stocco",
     "email": "teo.stocco@cern.ch"
   },
-  "license": "GPLv2",
+  "license": "GPL-2.0",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0",
+    "grunt": "~0.4.5",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-htmlmin": "^1.4.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "load-grunt-tasks": "^3.5.0"
+  },
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-ui-bootstrap": "^1.3.3"
   }
 }
