@@ -1,0 +1,16 @@
+{
+  "name": "invenio-trends-ui",
+  "version": "0.1.0",
+  "main": "src/invenio-trends-ui/index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "author": {
+    "name": "Teo Stocco",
+    "email": "teo.stocco@cern.ch"
+  },
+  "license": "GPLv2",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
