@@ -14,6 +14,7 @@
     "babel-preset-es2015": "^6.9.0",
     "babelify": "^7.3.0",
     "grunt": "~0.4.5",
+    "grunt-angular-templates": "^1.0.4",
     "grunt-browserify": "^5.0.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-connect": "^1.0.2",
@@ -25,6 +26,7 @@
   },
   "dependencies": {
     "angular": "^1.5.7",
-    "bootstrap-css": "^3.0.0"
+    "bootstrap-css": "^3.0.0",
+    "inspirehep-search-js": "git://github.com/inspirehep/inspirehep-search-js.git"
   }
 }

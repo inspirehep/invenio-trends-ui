@@ -1,8 +1,8 @@
-# Invenio trends ui
+# Invenio Trends UI
 
 ## Getting started
 
 ```bash
-npm i -g grunt-cli
 npm i
+grunt dev
 ```

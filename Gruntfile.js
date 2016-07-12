@@ -27,6 +27,17 @@ module.exports = function(grunt) {
         }
       }
     },
+    ngtemplates: {
+      options: {
+        htmlmin:  '<%= htmlmin.dist %>',
+        module: 'invenio-trends'
+      },
+      app: {
+        cwd: path + 'templates/',
+        src: '**/*.html',
+        dest: 'dist/templates.js'
+      }
+    },
     cssmin: {
       dist: {
         files: {
@@ -64,15 +75,19 @@ module.exports = function(grunt) {
       },
       js: {
         files: path + '**/*.js',
-        tasks: ['browserify']
+        tasks: 'browserify'
       },
       css: {
         files: path + '**/*.css',
-        tasks: ['cssmin']
+        tasks: 'cssmin'
       },
       html: {
-        files: path + '**/*.html',
-        tasks: ['htmlmin']
+        files: path + '*.html',
+        tasks: 'htmlmin'
+      },
+      templates: {
+        files: path + 'templates/**/*.html',
+        tasks: 'ngtemplates'
       }/*,
        files: {
        files: ['fonts/*', 'img/*'],
@@ -90,7 +105,7 @@ module.exports = function(grunt) {
     clean: ['dist']
   });
 
-  grunt.registerTask('default', ['clean', 'browserify', 'cssmin', 'htmlmin', 'copy']);
+  grunt.registerTask('default', ['clean', 'browserify', 'ngtemplates', 'cssmin', 'htmlmin', 'copy']);
   grunt.registerTask('dev', ['default', 'connect', 'watch']);
 
 };

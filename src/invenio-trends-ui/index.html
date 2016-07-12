@@ -3,29 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Invenio Trends UI - INSPIRE Labs</title>
     <script src="bundle.js"></script>
+    <script src="templates.js"></script>
     <link href="bundle.css" rel="stylesheet">
 </head>
 <body>
-<div ng-app="todoApp">
-    <div ng-controller="TodoListController as todoList">
-        <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
-        [ <a href="" ng-click="todoList.archive()">archive</a> ]
-        <ul class="unstyled">
-            <li ng-repeat="todo in todoList.todos">
-                <label class="checkbox">
-                    <input type="checkbox" ng-model="todo.done">
-                    <span class="done-{{todo.done}}">{{todo.text}}</span>
-                </label>
-            </li>
-        </ul>
-        <form ng-submit="todoList.addTodo()">
-            <input type="text" ng-model="todoList.todoText"  size="30"
-                   placeholder="add new todo here">
-            <input class="btn-primary" type="submit" value="add">
-        </form>
+<div class="container">
+    <div ng-app="invenio-trends">
+        <div class="row">
+            <div class="col-md-4">
+                <trends-search></trends-search>
+            </div>
+            <div class="col-md-8">
+
+            </div>
+        </div>
     </div>
 </div>
 </body>
