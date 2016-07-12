@@ -6,10 +6,31 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    browserify: {
+      options: {
+        watch: true,
+        browserifyOptions: {
+          debug: true
+        },
+        transform: [
+          [
+            "babelify",
+            {
+              presets: ['es2015']
+            }
+          ]
+        ]
+      },
+      dist: {
+        files: {
+          'dist/bundle.js': path + '*.js'
+        }
+      }
+    },
     cssmin: {
       dist: {
         files: {
-          'dist/bundle.css': path + 'app.css'
+          'dist/bundle.css': ['node_modules/bootstrap-css/lib/*.css', path + 'app.css']
         }
       }
     },
@@ -24,16 +45,18 @@ module.exports = function(grunt) {
         }
       }
     },
-    /*copy: {
-     dist: {
-     files: [
-     {
-     src: ['fonts/*', 'img/*'],
-     dest: 'dist'
-     }
-     ]
-     },
-     },*/
+    copy: {
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: 'node_modules/bootstrap/dist/',
+            src: 'fonts/*',
+            dest: 'dist/'
+          }
+        ]
+      },
+    },
     watch: {
       options: {
         livereload: true,
@@ -64,31 +87,10 @@ module.exports = function(grunt) {
         }
       }
     },
-    browserify: {
-      options: {
-        watch: true,
-        browserifyOptions: {
-          debug: true
-        },
-        transform: [
-          [
-            "babelify",
-            {
-              presets: ['es2015']
-            }
-          ]
-        ]
-      },
-      dist: {
-        files: {
-          'dist/bundle.js': path + '*.js'
-        }
-      }
-    },
     clean: ['dist']
   });
 
-  grunt.registerTask('default', ['clean', 'browserify', 'cssmin', 'htmlmin']);
+  grunt.registerTask('default', ['clean', 'browserify', 'cssmin', 'htmlmin', 'copy']);
   grunt.registerTask('dev', ['default', 'connect', 'watch']);
 
 };
