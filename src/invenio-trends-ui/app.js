@@ -4,11 +4,11 @@ import angular from "angular";
 
 const templateUrl = 'trends-search.html';
 
-const controller = $scope => {
+const controller = ($scope, $log) => {
 
   $scope.hello = 'world';
   $scope.update = () => {
-    console.log($scope.input)
+    $log.log($scope.input)
   };
 
 };
