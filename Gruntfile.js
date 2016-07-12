@@ -41,7 +41,11 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          'dist/bundle.css': ['node_modules/bootstrap-css/lib/*.css', path + 'app.css']
+          'dist/bundle.css': [
+            'node_modules/bootstrap-css/lib/*.css',
+            'node_modules/nvd3/build/nv.d3.min.css',
+            path + 'app.css'
+          ]
         }
       }
     },

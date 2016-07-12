@@ -2,3 +2,7 @@ body {
     background: #eee;
     padding-top: 20px;
 }
+
+#graph svg {
+    height: 400px;
+}

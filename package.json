@@ -33,6 +33,7 @@
   "dependencies": {
     "angular": "^1.5.7",
     "bootstrap-css": "^3.0.0",
-    "inspirehep-search-js": "git://github.com/inspirehep/inspirehep-search-js.git"
+    "d3": "^3.5.17",
+    "nvd3": "^1.8.4"
   }
 }
