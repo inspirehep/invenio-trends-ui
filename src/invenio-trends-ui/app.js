@@ -9,9 +9,11 @@
 */
 
 import angular from "angular";
-import nv from 'nvd3';
 import d3 from 'd3';
-import "babel-polyfill";
+
+import 'nvd3';
+import 'angular-nvd3';
+import 'babel-polyfill';
 
 const templateUrl = 'trends-search.html';
 const apiUrl = 'http://localhost:5000/';
@@ -29,10 +31,40 @@ const controller = ($scope, $log, $http) => {
 
   $scope.searchInput = '';
 
+  const dateFormatter = d => d3.time.format('%Y-%m-%d')(new Date(d));
+
+  $scope.options = {
+    chart: {
+      type: 'lineWithFocusChart',
+      height: 400,
+      x: d => new Date(d.x),
+      y: d => d.y,
+      xScale: d3.time.scale(),
+      transitionDuration: 500,
+      xAxis: {
+        tickFormat: dateFormatter
+      },
+      x2Axis: {
+        tickFormat: dateFormatter,
+        showMaxMin: false
+      },
+      y1Axis: {
+        tickFormat: d3.format('d'),
+        axisLabelDistance: 12
+      },
+      y2Axis: {
+        tickFormat: d3.format('d')
+      }
+    }
+  };
+
+  $scope.data = [];
+
   $scope.send = async () => {
     const terms = $scope.searchInput;
     const url = apiUrl + 'hist/' + terms;
     $log.info('sent: ' + url);
+
 
     $http
       .get(url, { timeout: 1000 })
@@ -42,20 +74,18 @@ const controller = ($scope, $log, $http) => {
       })
       .then(rep => {
 
-        $log.debug(rep);
-        $log.debug('poi');
+        $log.info(rep);
 
-        nv.addGraph(() => {
+        /*nv.addGraph(() => {
           const plt = nv.models.lineWithFocusChart();
-          const dateFormatter = d => d3.time.format('%Y-%m-%d')(new Date(d));
 
 
           plt.x(d => new Date(d.x));
           plt.xScale = d3.time.scale();
           plt.xAxis.tickFormat(dateFormatter);
           plt.x2Axis.tickFormat(dateFormatter);
-          //chart.yAxis.tickFormat(d3.format(',.2f'));
-          //chart.y2Axis.tickFormat(d3.format(',.2f'));
+          plt.yAxis.tickFormat(d3.format('d'));
+          plt.y2Axis.tickFormat(d3.format('d'));
 
           d3
             .select('#graph svg')
@@ -67,7 +97,13 @@ const controller = ($scope, $log, $http) => {
           nv.utils.windowResize(plt.update);
 
           return plt;
-        });
+        });*/
+
+        $scope.data = rep.data;
+        $log.debug($scope);
+        $scope.api.update();
+
+
       });
 
   };
@@ -83,10 +119,7 @@ const controller = ($scope, $log, $http) => {
 */
 
 angular
-  .module('invenio-trends', [])
-  .config($httpProvider => {
-    $httpProvider.defaults.timeout = 1000;
-  })
+  .module('invenio-trends', ['nvd3'])
   .component('trendsSearch', {
     templateUrl,
     controller

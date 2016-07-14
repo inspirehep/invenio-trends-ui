@@ -6,3 +6,7 @@ body {
 #graph svg {
     height: 400px;
 }
+
+.tick line {
+    display: none;
+}
