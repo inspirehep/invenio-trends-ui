@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     browserify: {
       options: {
-        watch: true,
+        watch: false,
         browserifyOptions: {
           debug: true
         },
@@ -16,7 +16,11 @@ module.exports = function(grunt) {
           [
             "babelify",
             {
-              presets: ['es2015']
+              presets: ['es2015'],
+              plugins: [
+                "transform-async-to-generator",
+                "syntax-async-functions"
+              ]
             }
           ]
         ]
