@@ -18,6 +18,11 @@ const apiUrl = 'http://localhost:5000/';
 
 const controller = ($scope, $log, $http) => {
 
+  /*
+    deuteron
+    muon production
+    elastic scattering
+   */
   $scope.search = () => {
 
   };
@@ -38,13 +43,17 @@ const controller = ($scope, $log, $http) => {
       .then(rep => {
 
         $log.debug(rep);
+        $log.debug('poi');
 
         nv.addGraph(() => {
-          var chart = nv.models.lineWithFocusChart();
+          const plt = nv.models.lineWithFocusChart();
+          const dateFormatter = d => d3.time.format('%Y-%m-%d')(new Date(d));
 
-          chart.xScale = d3.time.scale();
-          chart.xAxis.tickFormat(d => d3.time.format('%Y-%m-%d')(new Date(d)));
-          chart.x2Axis.tickFormat(d => d3.time.format('%Y-%m-%d')(new Date(d)));
+
+          plt.x(d => new Date(d.x));
+          plt.xScale = d3.time.scale();
+          plt.xAxis.tickFormat(dateFormatter);
+          plt.x2Axis.tickFormat(dateFormatter);
           //chart.yAxis.tickFormat(d3.format(',.2f'));
           //chart.y2Axis.tickFormat(d3.format(',.2f'));
 
@@ -53,11 +62,11 @@ const controller = ($scope, $log, $http) => {
             .datum(rep.data)
             .transition()
             .duration(500)
-            .call(chart);
+            .call(plt);
 
-          nv.utils.windowResize(chart.update);
+          nv.utils.windowResize(plt.update);
 
-          return chart;
+          return plt;
         });
       });
 
