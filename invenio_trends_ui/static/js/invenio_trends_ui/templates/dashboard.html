@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row trends-search-container">
+        <div class="col-md-12">
+            <div class="row-fluid">
+                <div class="col-xs-12 col-sm-6 col-md-8">
+                    <input ng-model="vm.searchTerm"
+                           placeholder="Search Terms (comma separated for multiple)"
+                           class="form-control">
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-2">
+                    <div class="input-group">
+                        <input id="show-related" type="checkbox"
+                               ng-model="vm.showRelated">
+                        <label for="show-related">Show related</label>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-2 text-right">
+                    <button class="btn btn-md btn-primary">Search trends
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" ng-show="vm.hasResults">
+            <div id="search-hist">
+                {# Will be auto populated #}
+            </div>
+        </div>
+    </div>
+
+    <div class="row trends-discovery-container">
+
+        <div class="col-md-12 text-center">
+            <h4>Trending Topics</h4>
+        </div>
+
+        <div ng-repeat="trend in vm.recentTrends.data track by $index"
+             class="col-xs-6 col-sm-6 col-md-4 col-lg-3 recent-trend-item">
+            <div class="recent-trend-details">
+                <h4 ng-bind="trend.name"></h4>
+                <div id="recent-trend-{{ $index }}">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
