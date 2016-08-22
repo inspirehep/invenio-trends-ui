@@ -15,16 +15,30 @@
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-3 col-md-2 text-right">
-                    <button class="btn btn-md btn-primary">Search trends
+                    <button class="btn btn-md btn-primary"
+                            ng-click="vm.search()">Search trends
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-12" ng-show="vm.hasResults">
-            <div id="search-hist">
-                {# Will be auto populated #}
+        <div class="col-md-12" ng-show="vm.searchResults">
+            <div class="container-fluid">
+                <div class="row">
+                    <br/><br/>
+                    <div class="col-md-9">
+                        <h4 class="text-muted">Term Trends</h4>
+                        <div id="trends-search-result">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="text-muted">Legend</h4>
+                        <div id="trends-search-legend">
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -32,11 +46,12 @@
 
         <div class="col-md-12 text-center">
             <h4>Trending Topics</h4>
+            <p class="text-muted">Click on a trend to view related publications.</p>
         </div>
 
         <div ng-repeat="trend in vm.recentTrends.data track by $index"
              class="col-xs-6 col-sm-6 col-md-4 col-lg-3 recent-trend-item">
-            <div class="recent-trend-details">
+            <div class="recent-trend-details" ng-click="vm.showPublications(trend.name)">
                 <h4 ng-bind="trend.name"></h4>
                 <div id="recent-trend-{{ $index }}">
                 </div>

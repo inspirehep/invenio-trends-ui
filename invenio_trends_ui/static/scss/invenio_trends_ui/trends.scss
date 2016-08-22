@@ -68,7 +68,7 @@ html, body {
   }
 
   .trends-discovery-container {
-    margin-top: 25px;
+    margin: 25px 0 25px 0;
 
     h4 {
       color: $invenio-trends-grey;
@@ -108,11 +108,36 @@ html, body {
 
         .trend-area {
           fill: $invenio-trends-orange;
-
         }
-
       }
     }
+  }
+
+  .trend-line {
+    fill: none;
+    stroke-width: 2px;
+  }
+
+  .trend-marker {
+    fill: white;
+    stroke-width: 1;
+  }
+
+  .legend-group {
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+
+  .legend-subgroup {
+    margin-left: 15px;
+  }
+
+  text {
+    fill: $invenio-trends-grey;
+  }
+
+  .axis path {
+    stroke: $invenio-trends-grey;
   }
 
 }

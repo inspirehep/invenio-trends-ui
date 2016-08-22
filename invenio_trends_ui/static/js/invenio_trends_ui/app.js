@@ -24,7 +24,9 @@
 require([
     'angular',
     'angular-ui-bootstrap',
-    'invenio-trends-module'
+    'invenio-trends-module',
+    'd3',
+    'd3-tip'
 ], function () {
     // When the DOM is ready bootstrap the `invenio-serach-js`
     angular.element(document).ready(function () {

@@ -35,11 +35,8 @@
                 TrendsAPIService.loadTrends($scope.trendsApi).then(function (result) {
                     $scope.vm.recentTrends = result;
                     options = {};
-                    if($scope.vm.recentTrends.min)
-                        options.min = $scope.vm.recentTrends.min;
-
-                    if($scope.vm.recentTrends.max)
-                        options.max = $scope.vm.recentTrends.max;
+                    if ($scope.vm.recentTrends.stats)
+                        options = $scope.vm.recentTrends.stats;
 
                     setTimeout(function () {
                         $scope.vm.recentTrends.data.forEach(function (d, i) {
@@ -52,12 +49,35 @@
                 $scope.vm.search = function () {
                     TrendsAPIService.search($scope.trendsApi, $scope.vm.searchTerm).then(function (searchResults) {
                         $scope.vm.searchResults = searchResults;
+
+                        options = {};
+                        if ($scope.vm.searchResults.stats)
+                            options = $scope.vm.searchResults.stats;
+
+                        options.height = 300;
+
+                        setTimeout(function () {
+                            trends_vis.renderCompositeTrends('#trends-search-result', '#trends-search-legend', $scope.vm.searchResults.data, $scope.vm.searchResults.related_terms, options)
+                        }, 0)
+
                     }).catch(function (error) {
-                        alert(error);
+                        console.debug("Nothing...");
                         $scope.vm.searchResults = [];
                     });
-                }
+                };
 
+                $scope.vm.showPublications = function (trend) {
+
+                    $scope.vm.selectedTrend = trend;
+                    $scope.modal = $uibModal.open({
+                        templateUrl: '/static/js/invenio_trends_ui/templates/publication_modal.html',
+                        scope: $scope
+                    });
+                };
+
+                $scope.vm.hidePublications = function () {
+                    $scope.modal.dismiss('cancel')
+                };
             }
         ];
 
