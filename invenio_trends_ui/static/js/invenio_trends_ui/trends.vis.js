@@ -136,6 +136,9 @@ var trends_vis = (function () {
 
             options = extendOptions(options, vis_placement);
 
+            d3.select(vis_placement).html('');
+            d3.select(legend_placement).html('');
+
             var svg = d3.select(vis_placement).append('svg')
                 .attr(options)
                 .append('g');
