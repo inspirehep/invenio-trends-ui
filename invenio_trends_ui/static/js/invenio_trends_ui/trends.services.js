@@ -107,7 +107,8 @@
                     return {
 
                         search: function (apiEndpoint, searchTerm) {
-                            return $http.get(apiEndpoint + searchTerm).then(function (response) {
+                            return $http.get(apiEndpoint + 'search/' + encodeURI(searchTerm)).then(function (response) {
+                                console.log(response);
                                 return response.data;
                             }).catch(function (value) {
                                 console.debug('in catch...');
@@ -117,7 +118,7 @@
 
 
                         loadTrends: function (apiEndpoint) {
-                            return $http.get(apiEndpoint + 'recent').then(function (response) {
+                            return $http.get(apiEndpoint + 'emerging').then(function (response) {
                                 return response.data;
                             }).catch(function (value) {
                                 console.debug('in catch...');

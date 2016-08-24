@@ -42,8 +42,6 @@ js = NpmBundle(
         npm={
             "almond": "~0.3.1",
             'angular': '~1.4.10',
-            'angular-loading-bar': '~0.9.0',
-            'd3': 'latest',
-            'd3-tip': 'latest',
+            'angular-loading-bar': '~0.9.0'
         },
 )

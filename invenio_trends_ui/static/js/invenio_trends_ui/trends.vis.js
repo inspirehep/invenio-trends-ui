@@ -129,7 +129,7 @@ var trends_vis = (function () {
 
             visPlacement = vis_placement;
             legendPlacement = legend_placement;
-            var parseDate = d3.time.format('%Y-%m-%d').parse;
+            var parseDate = d3.time.format.iso.parse;
             var color = d3.scale.ordinal().range(['#34495e', '#2980b9',
                 '#f39c12', '#d35400', '#e74c3c', '#95a5a6']);
             var margin = 25;
