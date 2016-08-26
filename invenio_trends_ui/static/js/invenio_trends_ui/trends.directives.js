@@ -25,8 +25,8 @@
 
     function trendsDashboard() {
 
-        var controller = ["$scope", "TrendsAPIService", "$uibModal",
-            function ($scope, TrendsAPIService, $uibModal) {
+        var controller = ["$scope", "TrendsAPIService", "$uibModal", "$window", "$httpParamSerializer",
+            function ($scope, TrendsAPIService, $uibModal, $window, $httpParamSerializer) {
                 $scope.vm = {};
                 $scope.vm.loading = true;
                 $scope.vm.searchTerm = null;
@@ -66,17 +66,12 @@
                     });
                 };
 
-                $scope.vm.showPublications = function (trend) {
-
-                    $scope.vm.selectedTrend = trend;
-                    $scope.modal = $uibModal.open({
-                        templateUrl: '/static/js/invenio_trends_ui/templates/publication_modal.html',
-                        scope: $scope
-                    });
-                };
-
-                $scope.vm.hidePublications = function () {
-                    $scope.modal.dismiss('cancel')
+                $scope.vm.showPublications = function (trend, start, end) {
+                    var query = {
+                        cc: "literature",
+                        q: "abstract:'"+trend+"' earliest_date:" + start + '->' + end
+                    };
+                    $window.location.href = '../search?' + $httpParamSerializer(query);
                 };
             }
         ];

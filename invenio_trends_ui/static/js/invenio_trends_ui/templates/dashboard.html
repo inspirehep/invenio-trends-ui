@@ -53,7 +53,7 @@
 
         <div ng-repeat="trend in vm.recentTrends.data track by $index"
              class="col-xs-6 col-sm-6 col-md-4 col-lg-3 recent-trend-item">
-            <div class="recent-trend-details" ng-click="vm.showPublications(trend.name)">
+            <div class="recent-trend-details" ng-click="vm.showPublications(trend.name, vm.recentTrends.stats.minDate, vm.recentTrends.stats.maxDate)">
                 <h4 ng-bind="trend.name"></h4>
                 <div id="recent-trend-{{ $index }}">
                 </div>

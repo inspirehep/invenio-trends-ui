@@ -35,7 +35,7 @@
                                 return response.data;
                             }).catch(function (value) {
                                 console.error('cannot fetch trend histogram', value);
-                                return JSON.parse(JSON.stringify(_default_data));
+                                return {};
                             });
                         },
 
@@ -44,7 +44,7 @@
                                 return response.data;
                             }).catch(function (value) {
                                 console.error('cannot fetch emerging trends', value);
-                                return JSON.parse(JSON.stringify(_default_data));
+                                return {};
                             });
 
                         }
