@@ -182,7 +182,7 @@ var trends_vis = (function () {
 
             svg.append('g')
                 .attr('class', 'x axis')
-                .attr('transform', 'translate(' + margin + ', ' + (options.height - margin) + ')')
+                .attr('transform', 'translate(0, ' + (options.height - margin) + ')')
                 .call(xAxis);
 
             svg.append('g')
