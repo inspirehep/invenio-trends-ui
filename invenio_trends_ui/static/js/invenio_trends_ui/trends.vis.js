@@ -82,7 +82,7 @@ var trends_vis = (function () {
     return {
         renderTrendArea: function (placement, data, options) {
 
-            var parseDate = d3.time.format('%Y-%m-%d').parse;
+            var parseDate = d3.time.format.iso.parse;
 
             options = extendOptions(options, placement);
 

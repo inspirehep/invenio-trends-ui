@@ -28,100 +28,22 @@
     angular.module('trends.services', [])
         .factory("TrendsAPIService", ["$http",
                 function ($http) {
-
-                    var _default_data = {
-                        stats: {
-                            minValue: 0,
-                            maxValue: 67,
-                            minDate: '2014-03-01',
-                            maxDate: '2014-12-06'
-                        },
-
-                        related_terms: {
-                            'Quantum chromodynamics': ["QCD"],
-                            'plasma physics': [],
-                            'lasers': []
-                        },
-
-                        data: [{
-                            name: 'Quantum chromodynamics',
-                            series: [
-                                {date: '2014-03-01', value: 0},
-                                {date: '2014-04-01', value: 0},
-                                {date: '2014-05-01', value: 2},
-                                {date: '2014-06-01', value: 5},
-                                {date: '2014-07-01', value: 11},
-                                {date: '2014-08-01', value: 11},
-                                {date: '2014-09-01', value: 27},
-                                {date: '2014-10-01', value: 27},
-                                {date: '2014-11-01', value: 47},
-                                {date: '2014-12-01', value: 57}
-                            ]
-                        }, {
-                            name: 'plasma physics',
-                            series: [
-                                {date: '2014-03-01', value: 0},
-                                {date: '2014-04-01', value: 0},
-                                {date: '2014-05-01', value: 2},
-                                {date: '2014-06-01', value: 5},
-                                {date: '2014-07-01', value: 1},
-                                {date: '2014-08-01', value: 7},
-                                {date: '2014-09-01', value: 17},
-                                {date: '2014-10-01', value: 27},
-                                {date: '2014-11-01', value: 47},
-                                {date: '2014-12-01', value: 49}
-                            ]
-                        },
-                            {
-                                name: 'lasers',
-                                series: [
-                                    {date: '2014-03-01', value: 0},
-                                    {date: '2014-04-02', value: 1},
-                                    {date: '2014-05-05', value: 1},
-                                    {date: '2014-06-27', value: 0},
-                                    {date: '2014-07-06', value: 0},
-                                    {date: '2014-08-06', value: 0},
-                                    {date: '2014-09-06', value: 3},
-                                    {date: '2014-10-06', value: 5},
-                                    {date: '2014-11-06', value: 9},
-                                    {date: '2014-12-06', value: 19}
-                                ]
-                            },
-                            {
-                                name: 'QCD',
-                                series: [
-                                    {date: '2014-03-01', value: 0},
-                                    {date: '2014-04-06', value: 0},
-                                    {date: '2014-05-06', value: 2},
-                                    {date: '2014-06-06', value: 5},
-                                    {date: '2014-07-06', value: 11},
-                                    {date: '2014-08-06', value: 7},
-                                    {date: '2014-09-06', value: 17},
-                                    {date: '2014-10-06', value: 17},
-                                    {date: '2014-11-06', value: 47},
-                                    {date: '2014-12-06', value: 37}
-                                ]
-                            }]
-                    };
-
                     return {
 
                         search: function (apiEndpoint, searchTerm) {
                             return $http.get(apiEndpoint + 'search/' + encodeURI(searchTerm)).then(function (response) {
-                                console.log(response);
                                 return response.data;
                             }).catch(function (value) {
-                                console.debug('in catch...');
+                                console.error('cannot fetch trend histogram', value);
                                 return JSON.parse(JSON.stringify(_default_data));
                             });
                         },
-
 
                         loadTrends: function (apiEndpoint) {
                             return $http.get(apiEndpoint + 'emerging').then(function (response) {
                                 return response.data;
                             }).catch(function (value) {
-                                console.debug('in catch...');
+                                console.error('cannot fetch emerging trends', value);
                                 return JSON.parse(JSON.stringify(_default_data));
                             });
 
